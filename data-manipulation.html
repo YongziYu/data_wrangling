@@ -189,15 +189,22 @@ litters_data = janitor::clean_names(litters_data)
 pups_data = read_csv(&quot;./data/FAS_pups.csv&quot;,
   col_types = &quot;ciiiii&quot;)
 pups_data = janitor::clean_names(pups_data)
-
-select(litters_data, group, litter_number, gd0_weight, pups_born_alive)</code></pre>
-<pre><code>## # A tibble: 49 x 4
-##   group litter_number gd0_weight pups_born_alive
-##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;           &lt;int&gt;
-## 1 Con7  #85                 19.7               3
-## 2 Con7  #1/2/95/2           27                 8
-## 3 Con7  #5/5/3/83/3-3       26                 6
-## # … with 46 more rows</code></pre>
+filter(pups_data, sex == 1)</code></pre>
+<pre><code>## # A tibble: 155 x 6
+##   litter_number   sex pd_ears pd_eyes pd_pivot pd_walk
+##   &lt;chr&gt;         &lt;int&gt;   &lt;int&gt;   &lt;int&gt;    &lt;int&gt;   &lt;int&gt;
+## 1 #85               1       4      13        7      11
+## 2 #85               1       4      13        7      12
+## 3 #1/2/95/2         1       5      13        7       9
+## # … with 152 more rows</code></pre>
+<pre class="r"><code>litters_data = 
+  read_csv(&quot;./data/FAS_litters.csv&quot;, col_types = &quot;ccddiiii&quot;) %&gt;%
+  janitor::clean_names() %&gt;%
+  select(-pups_survive) %&gt;%
+  mutate(
+    wt_gain = gd18_weight - gd0_weight,
+    group = str_to_lower(group)) %&gt;% 
+  drop_na(wt_gain)</code></pre>
 </div>
 <div id="section-2" class="section level1">
 <h1>Section 2</h1>
