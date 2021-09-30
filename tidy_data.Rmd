@@ -1,5 +1,5 @@
 ---
-title: "Simple document"
+title: "Tidy Data"
 output: html_document
 ---
 
@@ -11,6 +11,8 @@ I'm an R Markdown document!
 
 ```{r}
 library(tidyverse)
+library(haven)
+library(readxl)
 options(tibble.print_min = 3)
 pulse_df = 
   haven::read_sas("./data/public_pulse_data.sas7bdat") %>%
